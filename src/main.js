@@ -5,17 +5,26 @@ import { createProductElement } from './helpers/shopFunctions';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
-const products = document.querySelector('.products');
+try {
+  const products = document.querySelector('.products');
 
-const paragraph = document.createElement('p');
-paragraph.innerHTML = '...carregando';
-paragraph.classList.add('loading');
-products.appendChild(paragraph);
+  const paragraph = document.createElement('h2');
+  paragraph.innerHTML = '...carregando';
+  paragraph.classList.add('loading');
+  products.appendChild(paragraph);
 
-const productList = await fetchProductsList('computador');
-productList.forEach((product) => {
-  const createProduct = createProductElement(product);
-  products.appendChild(createProduct);
-});
+  const productList = await fetchProductsList('computador');
+  console.log(productList);
+  productList.forEach((product) => {
+    const createProduct = createProductElement(product);
+    products.appendChild(createProduct);
+  });
 
-paragraph.remove();
+  paragraph.remove();
+} catch (err) {
+  const errorMsg = document.createElement('h2');
+  errorMsg.classList.add('error');
+  errorMsg.innerHTML = 'Algum erro ocorreu, recarregue a página e tente novamente';
+  document.querySelector('.loading').remove();
+  document.body.append(errorMsg);
+}
