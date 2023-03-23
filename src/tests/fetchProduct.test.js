@@ -11,8 +11,13 @@ describe('Teste a função fetchProduct', () => {
     await fetchProduct("MLB1405519561");
     expect(fetch).toHaveBeenCalled();
   });
+  it('ao chamar a função fetchProduct com o argumento do produto "MLB1405519561", a função fetch utiliza o endpoint "https://api.mercadolibre.com/items/MLB1405519561"', () => {
+    fetchProduct('MLB1405519561')
+    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561');
+  })
   it('Verifica se o retorno da função fetchProduct com o argumento do produto "MLB1405519561" é uma estrutura de dados igual ao objeto produto ', async () => {
-    expect(await fetchProduct("MLB1405519561")).toEqual(product);
+    const teste = await fetchProduct("MLB1405519561");
+    expect(teste).toEqual(product);
   });
   it('Verifica se ao chamar a função fetchProduct sem argumento, retorna um erro com a mensagem: "ID não informado"', async () => {
     await expect(fetchProduct()).rejects.toThrowError('ID não informado');
