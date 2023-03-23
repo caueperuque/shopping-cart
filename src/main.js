@@ -1,6 +1,6 @@
 import { searchCep } from './helpers/cepFunctions';
 import './style.css';
-import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
+import { fetchProductsList } from './helpers/fetchFunctions';
 import { createProductElement } from './helpers/shopFunctions';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -21,9 +21,9 @@ try {
   });
 
   paragraph.remove();
-  const addCartBtn = document.querySelector('.product__add');
-  addCartBtn.addEventListener('click', ({ target }) => {
-  });
+  // const addCartBtn = document.querySelector('.product__add');
+  // addCartBtn.addEventListener('click', ({ target }) => {
+  // });
 } catch (err) {
   const errorMsg = document.createElement('h2');
   errorMsg.classList.add('error');
