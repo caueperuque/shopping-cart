@@ -1,7 +1,8 @@
 import { searchCep } from './helpers/cepFunctions';
 import './style.css';
-import { fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement } from './helpers/shopFunctions';
+import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
+import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
+import { saveCartID } from './helpers/cartFunctions';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
@@ -21,9 +22,16 @@ try {
   });
 
   paragraph.remove();
-  // const addCartBtn = document.querySelector('.product__add');
-  // addCartBtn.addEventListener('click', ({ target }) => {
-  // });
+
+  const addCartBtn = document.querySelectorAll('.product__add');
+  const getProduct = document.querySelectorAll('.product__id');
+  const getCart = document.querySelector('.cart__products');
+  addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
+    const product = getProduct[index].innerHTML;
+    saveCartID(product);
+    const testao = createCartProductElement(await fetchProduct(product));
+    getCart.appendChild(testao);
+  }));
 } catch (err) {
   const errorMsg = document.createElement('h2');
   errorMsg.classList.add('error');
