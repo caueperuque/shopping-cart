@@ -16,6 +16,7 @@ import {
   getSavedCartIDs,
 } from './helpers/cartFunctions';
 
+// eslint-disable-next-line react-func/max-lines-per-function
 async function main() {
   window.onload = () => {
     const savedValue = localStorage.getItem('subtotal');
