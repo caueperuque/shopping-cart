@@ -74,5 +74,3 @@ const addProductInCart = () => {
   }));
 };
 addProductInCart();
-
-
