@@ -45,9 +45,26 @@ export const getIdFromProduct = (product) => (
  * @param {Element} li - Elemento do produto a ser removido do carrinho.
  * @param {string} id - ID do produto a ser removido do carrinho.
  */
+
+export const calculatePrice = () => {
+  const priceOfProductInCar = document
+    .querySelectorAll('.cart__products .product__price__value');
+  const arrayPrice = [];
+  priceOfProductInCar.forEach((price) => {
+    const priceValue = price.innerHTML;
+    const formatPrice = Number(priceValue);
+    arrayPrice.push(formatPrice);
+  });
+  const sumTotal = arrayPrice.reduce((acc, cur) => acc + cur, 0);
+  const subTotal = document.querySelector('.total-price');
+  subTotal.innerHTML = sumTotal.toFixed(2);
+  localStorage.setItem('subtotal', subTotal.innerHTML);
+};
+
 const removeCartProduct = (li, id) => {
   li.remove();
   removeCartID(id);
+  calculatePrice();
 };
 
 /**

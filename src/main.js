@@ -1,8 +1,28 @@
-import { searchCep } from './helpers/cepFunctions';
+import {
+  searchCep,
+} from './helpers/cepFunctions';
 import './style.css';
-import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
-import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
-import { saveCartID, getSavedCartIDs } from './helpers/cartFunctions';
+import {
+  fetchProduct,
+  fetchProductsList,
+} from './helpers/fetchFunctions';
+import {
+  createProductElement,
+  createCartProductElement,
+  calculatePrice,
+} from './helpers/shopFunctions';
+import {
+  saveCartID,
+  getSavedCartIDs,
+} from './helpers/cartFunctions';
+
+window.onload = () => {
+  const savedValue = localStorage.getItem('subtotal');
+  if (savedValue) {
+    const teste = document.querySelector('.total-price');
+    teste.innerHTML = savedValue;
+  }
+};
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
@@ -22,16 +42,6 @@ try {
   });
 
   paragraph.remove();
-
-  const addCartBtn = document.querySelectorAll('.product__add');
-  const getProduct = document.querySelectorAll('.product__id');
-  const getCart = document.querySelector('.cart__products');
-  addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
-    const product = getProduct[index].innerHTML;
-    saveCartID(product);
-    const addProductInCart = createCartProductElement(await fetchProduct(product));
-    getCart.appendChild(addProductInCart);
-  }));
 } catch (err) {
   const errorMsg = document.createElement('h2');
   errorMsg.classList.add('error');
@@ -44,9 +54,25 @@ const productsGetStorage = async () => {
   const idList = getSavedCartIDs();
   const promisseList = idList.map((id) => fetchProduct(id));
   const getProduct = await Promise.all(promisseList);
-  console.log(getProduct);
   const getCart = document.querySelector('.cart__products');
-  console.log(getProduct.forEach((id) => getCart
-    .appendChild(createCartProductElement(id))));
+  getProduct.forEach((id) => getCart
+    .appendChild(createCartProductElement(id)));
 };
+
 await productsGetStorage();
+
+const addProductInCart = () => {
+  const addCartBtn = document.querySelectorAll('.product__add');
+  const getProduct = document.querySelectorAll('.product__id');
+  const getCart = document.querySelector('.cart__products');
+  addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
+    const product = getProduct[index].innerHTML;
+    saveCartID(product);
+    const addInCart = createCartProductElement(await fetchProduct(product));
+    getCart.appendChild(addInCart);
+    calculatePrice();
+  }));
+};
+addProductInCart();
+
+
