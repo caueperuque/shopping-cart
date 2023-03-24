@@ -10,7 +10,8 @@
     "cy": "cypress run",
     "cy:open": "cypress open --e2e --browser chrome",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js",
-    "lint:styles": "stylelint *.css --config .stylelintrc.json --ignore-disables --allow-empty-input"
+    "lint:styles": "stylelint *.css --config .stylelintrc.json --ignore-disables --allow-empty-input",
+    "build": "vite build"
   },
   "jest": {
     "coverageReporters": [
