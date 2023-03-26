@@ -15,6 +15,10 @@
     <header class="header">
       <div class="container-title">
         <img src="./src/imgs/logo.png" class="logo" alt="logo carrinho de compras">
+        <div class="container-search">
+          <input type="text" name="search" id="search" placeholder="Pesquisar">
+          <button id="search-btn">Procurar</button>
+        </div>
       </div>
       <div class="container-cartTitle">
         <i class="material-icons" style="font-size:35px;color: rgb(65, 25, 127);">shopping_cart</i>
@@ -25,7 +29,7 @@
       <section class="products"></section>
       <section class="cart">
         <ol class="cart__products"></ol>
-        <p class="price">Subtotal <span>R$<span class="total-price">0</span></span></p>
+        <p class="price">Subtotal <span id="real">R$<span class="total-price">0</span></span></p>
         <input type="text" class="cep-input" placeholder="Digite seu CEP">
         <button class="cep-button cart-button">Buscar CEP</button>
         <span class="cart__address"></span>

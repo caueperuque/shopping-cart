@@ -36,12 +36,25 @@ async function main() {
     paragraph.classList.add('loading');
     products.appendChild(paragraph);
 
-    const productList = await fetchProductsList('computador');
-    // console.log(productList);
+    const productList = await fetchProductsList('sdd');
     productList.forEach((product) => {
       const createProduct = createProductElement(product);
       products.appendChild(createProduct);
     });
+
+    const searchBtn = document.querySelector('#search-btn');
+    const searchInput = document.querySelector('#search');
+    const searchProduct = async () => {
+      const tes = document.querySelector('.products');
+      tes.innerHTML = '';
+      const productsName = await fetchProductsList(searchInput.value);
+      productsName.forEach((product) => {
+        const createProduct = createProductElement(product);
+        products.appendChild(createProduct);
+      });
+    };
+
+    searchBtn.addEventListener('click', searchProduct);
 
     paragraph.remove();
   } catch (err) {
