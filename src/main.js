@@ -52,6 +52,16 @@ async function main() {
         const createProduct = createProductElement(product);
         products.appendChild(createProduct);
       });
+      const addCartBtn = document.querySelectorAll('.product__add');
+      const getProduct = document.querySelectorAll('.product__id');
+      const getCart = document.querySelector('.cart__products');
+      addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
+        const product = getProduct[index].innerHTML;
+        saveCartID(product);
+        const addInCart = createCartProductElement(await fetchProduct(product));
+        getCart.appendChild(addInCart);
+        calculatePrice();
+      }));
     };
 
     searchBtn.addEventListener('click', searchProduct);
@@ -76,7 +86,7 @@ async function main() {
 
   await productsGetStorage();
 
-  const addProductInCart = () => {
+  const addProductInCart = async () => {
     const addCartBtn = document.querySelectorAll('.product__add');
     const getProduct = document.querySelectorAll('.product__id');
     const getCart = document.querySelector('.cart__products');
