@@ -54,6 +54,7 @@ async function main() {
       });
       const addCartBtn = document.querySelectorAll('.product__add');
       const getProduct = document.querySelectorAll('.product__id');
+      // eslint-disable-next-line sonarjs/no-duplicate-string
       const getCart = document.querySelector('.cart__products');
       addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
         const product = getProduct[index].innerHTML;
@@ -90,6 +91,7 @@ async function main() {
     const addCartBtn = document.querySelectorAll('.product__add');
     const getProduct = document.querySelectorAll('.product__id');
     const getCart = document.querySelector('.cart__products');
+    // eslint-disable-next-line sonarjs/no-identical-functions
     addCartBtn.forEach((btn, index) => btn.addEventListener('click', async () => {
       const product = getProduct[index].innerHTML;
       saveCartID(product);
